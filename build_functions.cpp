@@ -21,6 +21,7 @@ Menu build_changeMenu(Store& store)
     options.push_back(store.get_function_pointer("change name"));
     options.push_back(store.get_function_pointer("change quantity"));
     options.push_back(store.get_function_pointer("change price"));
+    options.push_back(store.get_function_pointer("return"));
 
     return Menu(store.phrase("change") + " " + store.phrase("product"), options);
 }

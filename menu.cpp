@@ -1,5 +1,6 @@
 #include "menu.h"
 #include "store.h"
+#include <stdexcept>
 #include <limits>
 
 
@@ -8,7 +9,15 @@ void Menu::access(Store& store, std::istream& in, std::ostream& os)
 {
     write_options(os);
     os << "\n" << store.phrase("enter");
-    (*menuOptions[select_option(store, in, os)-1]).access(store, in, os);       //dereferenced because menuOptions is vector<Function*>
+    try
+    {
+        (*menuOptions[select_option(store, in, os)-1]).access(store, in, os);
+    }
+    catch (const std::domain_error& e)
+    {
+        os << "\n" << e.what() << "\n";
+        access(store, in, os);
+    }
 }
 
 
@@ -56,15 +65,17 @@ std::vector<Function*>::size_type Menu::select_option(Store& store, std::istream
             return select;
         else
         {
-            os << store.phrase("num_outside_range") << limit << "\n";
+            os << "\n" << store.phrase("num_outside_range") << limit << "\n\n"
+               << store.phrase("enter");
             return select_option(store, in, os);
         }
     }
     else
     {
-        os << store.phrase("not_num") << "\n";
+        os << "\n" << store.phrase("not_num") << "\n";
         in.clear();
         in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        os << "\n" << store.phrase("enter");
         return select_option(store, in, os);
     }
 }

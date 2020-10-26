@@ -156,11 +156,18 @@ void change(Store& store, istream& in, ostream& os)
             if (store.check_for_product(product))
             {
                 os << "\n" << product << store.phrase("product_in") << "\n";
+                store.product_status(os);
+                os << "\n" << store.phrase("change_?") << "\n";
                 store.access_Menu("change menu", in, os);
             }
             else
             {
                 os << "\n" << store.phrase("no_product") << "\n";
+                os << "\n" << store.phrase("quit_?");
+                if(!check_decision(in, 'q'))
+                    change(store, in, os);
+                else
+                    go_back(store, in, os);
             }
         }
 
@@ -168,15 +175,12 @@ void change(Store& store, istream& in, ostream& os)
     catch(const domain_error& e)
     {
         os << "\n" << e.what() << "\n";
+        os << "\n" << store.phrase("quit_?");
+        if(!check_decision(in, 'q'))
+            change(store, in, os);
+        else
+            go_back(store, in, os);
     }
-    if(store.check_selected())
-            store.deselect_product();
-
-    os << "\n" << store.phrase("quit_?");
-    if(!check_decision(in, 'q'))
-        change(store, in, os);
-    else
-        go_back(store, in, os);
 }
 
 
@@ -184,15 +188,14 @@ void change(Store& store, istream& in, ostream& os)
 void exit(Store& store, istream& in, ostream& os)
 {
     os << "\n" << store.phrase("store_exit") << "\n";
+    store.set_language(not_set());
 }
 
 
 //Go to the main menu
 void go_back(Store& store, istream& in, ostream& os)
 {
-    if (store.check_selected())
-        store.deselect_product();
-    store.access(in, os);
+    store.access_Menu("main menu", in, os);
 }
 
 
@@ -234,6 +237,7 @@ void query(Store& store, istream& in, ostream& os)
 }
 
 
+//Show the status of all the products in the store
 void status(Store& store, istream& in, ostream& os)
 {
     os << store.headline(store.phrase("status"));
@@ -248,6 +252,7 @@ void status(Store& store, istream& in, ostream& os)
 }
 
 
+//Buy a product from the store
 void buy(Store& store, istream& in, ostream& os)
 {
     os << store.headline(store.phrase("buy")) << "\n";
@@ -318,6 +323,12 @@ void change_p_name(Store& store, istream& in, ostream& os)
     catch(const domain_error& e)
     {
         os << e.what() <<"\n";
+
+        os << "\n" << store.phrase("quit_?");
+        if(!check_decision(in, 'q'))
+            change_p_name(store, in, os);
+        else
+            store.access_Menu("change menu", in, os);
     }
 }
 
@@ -335,6 +346,11 @@ void change_p_quantity(Store& store, istream& in, ostream& os)
     catch(const domain_error& e)
     {
         os << "\n" << e.what() <<"\n";
+        os << "\n" << store.phrase("quit_?");
+        if(!check_decision(in, 'q'))
+            change_p_quantity(store, in, os);
+        else
+            store.access_Menu("change menu", in, os);
     }
 }
 
@@ -352,6 +368,11 @@ void change_p_price(Store& store, istream& in, ostream& os)
     catch(const domain_error& e)
     {
         os << "\n" << e.what() <<"\n";
+        os << "\n" << store.phrase("quit_?");
+        if(!check_decision(in, 'q'))
+            change_p_price(store, in, os);
+        else
+            store.access_Menu("change menu", in, os);
     }
 }
 
