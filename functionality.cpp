@@ -189,7 +189,7 @@ void change(Store& store, istream& in, ostream& os)
 void exit(Store& store, istream& in, ostream& os)
 {
     os << "\n" << store.phrase("store_exit") << "\n";
-    store.set_language(not_set());
+    store.quit();
 }
 
 

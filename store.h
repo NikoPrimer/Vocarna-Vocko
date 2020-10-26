@@ -39,6 +39,16 @@ public:
     void change_product_quantity(double);
     void change_product_price(double);
 
+    //Reset the store except the warehouse
+    void quit()
+    {
+        dictionary = not_set();
+        selected_language = false;
+        functions.clear();
+        menus.clear();
+        pre_build();
+    }
+
     //Check if a language was loaded into the dictionary
     bool check_language()
     {
