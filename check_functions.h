@@ -13,12 +13,18 @@ bool check_positive(N num)
 
 bool compare_string_nocase(std::string, std::string);
 bool check_decision(std::istream&, char);
-bool check_word(const std::string&);
+bool check_word(const std::string&,
+                const std::string& = "Not a letter");
 
 
-std::string input_name(std::istream&);
-std::string arrange_input_name(const std::string&);
+std::string input_name(std::istream&,
+                       const std::string& = "No input",
+                       const std::string& = "Not a letter");
+
+std::string arrange_input_name(const std::string&, const std::string& = "Not a letter");
 std::string str_lower(std::string&);
-double input_quantity_price(std::istream&);
+double input_quantity_price(std::istream&,
+                            const std::string& = "Not a number",
+                            const std::string& = "Not a positive number");
 
 #endif // CHECK_FUNCTIONS_H_INCLUDED

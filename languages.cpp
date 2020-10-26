@@ -22,7 +22,7 @@ Language croatian()
 
     dictionary["num_outside_range"] = "Molim vas, unesite broj izmedju 1 i ";
     dictionary["not_num"] = "Molim vas unesite broj";
-    dictionary["not_positive_num"] = "Molim vas unesite broj veći ili jednak 0";
+    dictionary["not_positive_num"] = "Molim vas unesite broj veci ili jednak 0";
     dictionary["no_input"] = "Niste ništa unijeli";
     dictionary["not_word"] = "Molim vas unosite samo slova";
     dictionary["quit_?"] = "Unesite Q ili q ako se zelite vratiti na izbornik, bilo sto drugo da ponovite operaciju: ";

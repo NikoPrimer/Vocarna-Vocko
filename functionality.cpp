@@ -39,7 +39,7 @@ void remove_p(Store& store, istream& in, ostream& os)
 
     try
     {
-        string product = input_name(in);
+        string product = input_name(in, store.phrase("no_input"), store.phrase("not_word"));
         if (!store.check_for_product(product))
         {
             os << "\n" << store.phrase("no_product") << "\n";
@@ -80,7 +80,7 @@ void add(Store& store, istream& in, ostream& os)
 
     try
     {
-        string product = input_name(in);
+        string product = input_name(in, store.phrase("no_input"), store.phrase("not_word"));
         if (store.check_for_product(product))
         {
             os << "\n"
@@ -93,7 +93,7 @@ void add(Store& store, istream& in, ostream& os)
             if (check_decision(in, 'y'))
             {
                 os << "\n" << store.phrase("set_quantity");
-                double added = input_quantity_price(in);
+                double added = input_quantity_price(in, store.phrase("not_num"), store.phrase("not_positive_num"));
                 store.change_product_quantity(added + store.product_quantity());
                 store.product_status(os);
             }
@@ -105,10 +105,10 @@ void add(Store& store, istream& in, ostream& os)
         else
         {
             os << store.phrase("set_quantity");
-            double quantity = input_quantity_price(in);
+            double quantity = input_quantity_price(in, store.phrase("not_num"), store.phrase("not_positive_num"));
 
             os << store.phrase("set_price");
-            double price = input_quantity_price(in);
+            double price = input_quantity_price(in, store.phrase("not_num"), store.phrase("not_positive_num"));
 
             Produce new_product(product, quantity, price);
             store.add_product(new_product);
@@ -152,7 +152,7 @@ void change(Store& store, istream& in, ostream& os)
         else
         {
             os << store.phrase("enter_product");
-            string product = input_name(in);
+            string product = input_name(in, store.phrase("no_input"), store.phrase("not_word"));
             if (store.check_for_product(product))
             {
                 os << "\n" << product << store.phrase("product_in") << "\n";
@@ -204,7 +204,7 @@ void query(Store& store, istream& in, ostream& os)
 
     try
     {
-        string product = input_name(in);
+        string product = input_name(in, store.phrase("no_input"), store.phrase("not_word"));
         if (store.check_for_product(product))
         {
             os << "\n" << product << store.phrase("product_in") << "\n";
@@ -258,7 +258,7 @@ void buy(Store& store, istream& in, ostream& os)
 
     try
     {
-        string product = input_name(in);
+        string product = input_name(in, store.phrase("no_input"), store.phrase("not_word"));
         if (!store.check_for_product(product))
         {
             os << "\n" << store.phrase("no_product") << "\n";
@@ -267,7 +267,7 @@ void buy(Store& store, istream& in, ostream& os)
         {
             store.product_status(os);
             os << "\n" << store.phrase("set_quantity");
-            double quantity = input_quantity_price(in);
+            double quantity = input_quantity_price(in, store.phrase("not_num"), store.phrase("not_positive_num"));
             if(quantity <= store.product_quantity())
             {
                 store.buy_product(quantity);
@@ -311,7 +311,7 @@ void change_p_name(Store& store, istream& in, ostream& os)
     os << store.phrase("set_name");
     try
     {
-        string new_name = input_name(in);
+        string new_name = input_name(in, store.phrase("no_input"), store.phrase("not_word"));
         store.change_product_name(new_name);
         store.product_status(os);
     }
@@ -328,7 +328,7 @@ void change_p_quantity(Store& store, istream& in, ostream& os)
     os << store.phrase("set_quantity");
     try
     {
-        double new_quantity = input_quantity_price(in);
+        double new_quantity = input_quantity_price(in, store.phrase("not_num"), store.phrase("not_positive_num"));
         store.change_product_quantity(new_quantity);
         store.product_status(os);
     }
@@ -345,7 +345,7 @@ void change_p_price(Store& store, istream& in, ostream& os)
     os << store.phrase("set_price");
     try
     {
-        double new_price = input_quantity_price(in);
+        double new_price = input_quantity_price(in, store.phrase("not_num"), store.phrase("not_positive_num"));
         store.change_product_price(new_price);
         store.product_status(os);
     }

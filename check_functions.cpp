@@ -72,47 +72,47 @@ bool check_decision(istream& in, char q)
 
 
 //Check if string contains only letters
-bool check_word(const std::string& word)
+bool check_word(const std::string& word, const std::string& not_letter)
 {
     for(string::const_iterator iter = word.begin();
         iter != word.end();
         ++iter)
         if(!isalpha(*iter))
-            throw domain_error("Not a letter");
+            throw domain_error(not_letter);
     return true;
 }
 
 
 //Take in input and return a string that is comparable to the Produce::name()
-string input_name(istream& in)
+string input_name(istream& in, const string& no_in, const string& not_letter)
 {
     in.clear();
     string input;
     getline(in, input);
     if (input.empty())
-        throw domain_error("No input");
+        throw domain_error(no_in);
     else
     {
-        string ret = arrange_input_name(input);
+        string ret = arrange_input_name(input, not_letter);
         return ret;
     }
 }
 
 
 //Take in a string, check for viable words and remove extra whitespace
-string arrange_input_name(const string& input)
+string arrange_input_name(const string& input, const string& not_letter)
 {
     vector<string> words;
     split_t(input, back_inserter(words));
     vector<string>::iterator iter = words.begin();
     string ret;
-    if (check_word(*iter))
+    if (check_word(*iter, not_letter))
         ret = str_lower(*iter++);
 
     while(iter != words.end())
     {
         ret += " ";
-        if (check_word(*iter))
+        if (check_word(*iter, not_letter))
             ret += str_lower(*iter++);
     }
     return ret;
@@ -120,7 +120,7 @@ string arrange_input_name(const string& input)
 
 
 //Take in input an return double that is valid for Produce::quantity or Produce::price
-double input_quantity_price(istream& in)
+double input_quantity_price(istream& in, const string& not_num, const string& not_positive)
 {
     double input;
     in.clear();
@@ -134,13 +134,13 @@ double input_quantity_price(istream& in)
         else
         {
             in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            throw domain_error("Not a positive number");
+            throw domain_error(not_positive);
         }
     }
     else
     {
         in.clear();
         in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        throw domain_error("Not a number");
+        throw domain_error(not_num);
     }
 }
