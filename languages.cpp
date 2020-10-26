@@ -54,15 +54,16 @@ Language croatian()
     dictionary["change_?"] = "Sto zelite izmjeniti na proizvodu?";
     dictionary["not_enough_q"] = "Nema dovoljno kolicine na skladistu";
     dictionary["buy_?"] = "Zelite li kupiti ";
+    dictionary["at_price"] = " po cijeni od ";
 
     dictionary["set_name"] = "Odredite naziv: ";
     dictionary["set_quantity"] = "Odredite kolicinu [kg]: ";
-    dictionary["set_price"] = "Odredite cijenu [kn]: ";
+    dictionary["set_price"] = "Odredite cijenu [kn/kg]: ";
 
     dictionary["product"] = "Artikal";
     dictionary["name"] = "Naziv";
     dictionary["quantity"] = "Kolicina [kg]";
-    dictionary["price"] = "Cijena [kn]";
+    dictionary["price"] = "Cijena [kn/kg]";
 
     dictionary["bought"] = "Kupili ste ";
 
@@ -122,15 +123,16 @@ Language english()
     dictionary["change_?"] = "What do you want to change?";
     dictionary["not_enough_q"] = "Not enough product quantity";
     dictionary["buy_?"] = "Do you want to buy ";
+    dictionary["at_price"] = " at a price of ";
 
     dictionary["set_name"] = "Enter name: ";
     dictionary["set_quantity"] = "Enter quantity [kg]: ";
-    dictionary["set_price"] = "Enter price [kn]: ";
+    dictionary["set_price"] = "Enter price [kn/kg]: ";
 
     dictionary["product"] = "Product";
     dictionary["name"] = "Name";
     dictionary["quantity"] = "Quantity [kg]";
-    dictionary["price"] = "Price [kn]";
+    dictionary["price"] = "Price [kn/kg]";
 
     dictionary["bought"] = "You bought ";
 

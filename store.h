@@ -15,7 +15,7 @@
 class Store
 {
 public:
-    Store(): dictionary(not_set()), selected_language(false) { pre_build(); }
+    Store(): dictionary(not_set()), selected_language(false) { pre_build();   stock_warehouse(); }
 
     typedef std::list<Produce> product_registry;
     typedef std::list<Produce>::iterator registry_iter;
@@ -67,6 +67,12 @@ public:
     double product_quantity() const
     {
         return (*selected_product).quantity();
+    }
+
+    //Reads the price of the selected product
+    double product_price() const
+    {
+        return (*selected_product).price();
     }
 
     //Sets a pointer to the selected product

@@ -18,10 +18,13 @@ using std::string;
 void Store::access(istream& in, ostream& os)
 {
     if (!selected_language)
+    {
         access_Menu("language menu", in, os);
-
-    if (selected_language)
-        access_Menu("main menu", in, os);
+        if (selected_language)
+        {
+            access_Menu("main menu", in, os);
+        }
+    }
 }
 
 
@@ -45,8 +48,6 @@ void Store::default_build()
     menus["buy menu"] = build_buyMenu(*this);
 
     change_Menu_build();
-
-    stock_warehouse();
 }
 
 

@@ -60,6 +60,7 @@ void remove_p(Store& store, istream& in, ostream& os)
     catch(const domain_error& e)
     {
         os << e.what() <<"\n";
+
     }
     if(store.check_selected())
             store.deselect_product();
@@ -275,20 +276,29 @@ void buy(Store& store, istream& in, ostream& os)
             double quantity = input_quantity_price(in, store.phrase("not_num"), store.phrase("not_positive_num"));
             if(quantity <= store.product_quantity())
             {
-                store.buy_product(quantity);
-                os << "\n" << store.phrase("bought") << quantity
-                   << " kg " << store.product_name() << "\n";
-                store.product_status(os);
+                os << "\n" << store.phrase("buy_?") << quantity
+                   << " kg " << product << store.phrase("at_price")
+                   << quantity*store.product_price() << " kn?"
+                   <<"\n\n" << store.phrase("decision");
+                if(check_decision(in, 'y'))
+                {
+                    store.buy_product(quantity);
+                    os << "\n" << store.phrase("bought") << quantity
+                       << " kg " << product;
+                    store.product_status(os);
+                }
             }
             else
             {
                 quantity = store.product_quantity();
                 os << "\n" << store.phrase("not_enough_q") << "\n\n"
-                   << store.phrase("buy_?") << quantity << "\n\n"
-                   << store.phrase("decision");
+                   << store.phrase("buy_?") << quantity
+                   << " kg " << product << store.phrase("at_price")
+                   << quantity*store.product_price() << " kn?"
+                   <<"\n\n" << store.phrase("decision");
                 if(check_decision(in, 'y'))
                 {
-                    store.buy_product(store.product_quantity());
+                    store.buy_product(quantity);
                     os << "\n" << store.phrase("bought") << quantity
                        << " kg " << product;
                 }
