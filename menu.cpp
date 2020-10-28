@@ -7,6 +7,7 @@
 //Access the Menu
 void Menu::access(Store& store, std::istream& in, std::ostream& os)
 {
+
     write_options(os);
     os << "\n" << store.phrase("enter");
     try

@@ -219,6 +219,7 @@ void query(Store& store, istream& in, ostream& os)
         {
             os << "\n" << product << store.phrase("product_in") << "\n";
             store.product_status(os);
+            store.deselect_product();
         }
         else
         {
@@ -229,8 +230,6 @@ void query(Store& store, istream& in, ostream& os)
     {
         os << "\n" << e.what() << "\n";
     }
-    if(store.check_selected())
-            store.deselect_product();
 
     os << "\n" << store.phrase("quit_?");
     if(!check_decision(in, 'q'))
@@ -329,7 +328,7 @@ void buy(Store& store, istream& in, ostream& os)
 //Change the name of a product in the store
 void change_p_name(Store& store, istream& in, ostream& os)
 {
-    os << store.phrase("set_name");
+    os << "\n" << store.phrase("set_name");
     try
     {
         string new_name = input_name(in, store.phrase("no_input"), store.phrase("not_word"));
@@ -346,13 +345,21 @@ void change_p_name(Store& store, istream& in, ostream& os)
         else
             store.access_Menu("change menu", in, os);
     }
+    os << "\n" << store.phrase("quit_?");
+    if(!check_decision(in, 'q'))
+        store.access_Menu("change menu", in, os);
+    else
+    {
+        store.deselect_product();
+        store.access_Menu("main menu", in, os);
+    }
 }
 
 
 //Change the quantity of a product in the store
 void change_p_quantity(Store& store, istream& in, ostream& os)
 {
-    os << store.phrase("set_quantity");
+    os << "\n" << store.phrase("set_quantity");
     try
     {
         double new_quantity = input_quantity_price(in, store.phrase("not_num"), store.phrase("not_positive_num"));
@@ -368,13 +375,21 @@ void change_p_quantity(Store& store, istream& in, ostream& os)
         else
             store.access_Menu("change menu", in, os);
     }
+    os << "\n" << store.phrase("quit_?");
+    if(!check_decision(in, 'q'))
+        store.access_Menu("change menu", in, os);
+    else
+    {
+        store.deselect_product();
+        store.access_Menu("main menu", in, os);
+    }
 }
 
 
 //Change the price of a product in the store
 void change_p_price(Store& store, istream& in, ostream& os)
 {
-    os << store.phrase("set_price");
+    os << "\n" << store.phrase("set_price");
     try
     {
         double new_price = input_quantity_price(in, store.phrase("not_num"), store.phrase("not_positive_num"));
@@ -389,6 +404,14 @@ void change_p_price(Store& store, istream& in, ostream& os)
             change_p_price(store, in, os);
         else
             store.access_Menu("change menu", in, os);
+    }
+    os << "\n" << store.phrase("quit_?");
+    if(!check_decision(in, 'q'))
+        store.access_Menu("change menu", in, os);
+    else
+    {
+        store.deselect_product();
+        store.access_Menu("main menu", in, os);
     }
 }
 
