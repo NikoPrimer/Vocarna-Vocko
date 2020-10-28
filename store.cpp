@@ -17,14 +17,7 @@ using std::string;
 //Access the store
 void Store::access(istream& in, ostream& os)
 {
-    if (!selected_language)
-    {
-        access_Menu("language menu", in, os);
-        if (selected_language)
-        {
-            access_Menu("main menu", in, os);
-        }
-    }
+    access_Menu("language menu", in, os);
 }
 
 

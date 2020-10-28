@@ -17,6 +17,7 @@ void set_croatian_language(Store& store, istream& in, ostream& os)
 {
     store.set_language(croatian());
     os << "\n" << store.phrase("language_set") << "\n";
+    store.access_Menu("main menu", in, os);
 }
 
 
@@ -25,6 +26,7 @@ void set_english_language(Store& store, istream& in, ostream& os)
 {
     store.set_language(english());
     os << "\n" << store.phrase("language_set") << "\n";
+    store.access_Menu("main menu", in, os);
 }
 
 
@@ -54,7 +56,10 @@ void remove_p(Store& store, istream& in, ostream& os)
                 os << "\n" << store.phrase("erase_true") << product << "\n";
             }
             else
+            {
+                store.deselect_product();
                 os << "\n" << store.phrase("erase_cancel") << product << "\n";
+            }
         }
     }
     catch(const domain_error& e)
@@ -62,8 +67,6 @@ void remove_p(Store& store, istream& in, ostream& os)
         os << e.what() <<"\n";
 
     }
-    if(store.check_selected())
-            store.deselect_product();
 
     os << "\n" << store.phrase("quit_?");
     if(!check_decision(in, 'q'))
@@ -97,6 +100,7 @@ void add(Store& store, istream& in, ostream& os)
                 double added = input_quantity_price(in, store.phrase("not_num"), store.phrase("not_positive_num"));
                 store.change_product_quantity(added + store.product_quantity());
                 store.product_status(os);
+                store.deselect_product();
             }
             else
             {
@@ -116,14 +120,13 @@ void add(Store& store, istream& in, ostream& os)
             store.select_new_product();
             os << "\n" << store.phrase("added");
             store.product_status(os);
+            store.deselect_product();
         }
     }
     catch(const domain_error& e)
     {
         os << "\n" << e.what() << "\n";
     }
-    if(store.check_selected())
-            store.deselect_product();
 
     os << "\n" << store.phrase("quit_?");
     if(!check_decision(in, 'q'))
@@ -178,7 +181,10 @@ void change(Store& store, istream& in, ostream& os)
         os << "\n" << e.what() << "\n";
         os << "\n" << store.phrase("quit_?");
         if(!check_decision(in, 'q'))
+        {
+            store.deselect_product();
             change(store, in, os);
+        }
         else
             go_back(store, in, os);
     }

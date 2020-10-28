@@ -21,7 +21,6 @@ public:
     typedef std::list<Produce>::iterator registry_iter;
 
     void pre_build();
-    int make(std::istream& = std::cin, std::ostream& = std::cout);
     void access(std::istream& = std::cin, std::ostream& = std::cout);
 
     void select_language(std::istream&, std::ostream&);

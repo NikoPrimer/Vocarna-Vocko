@@ -9,6 +9,7 @@ Menu build_mainMenu(Store& store)
     options.push_back(store.get_function_pointer("access manage"));
     options.push_back(store.get_function_pointer("access query"));
     options.push_back(store.get_function_pointer("access buy"));
+    options.push_back(store.get_function_pointer("access language"));
     options.push_back(store.get_function_pointer("exit"));
 
     return Menu(store.phrase("store"), options);;
