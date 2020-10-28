@@ -6,11 +6,8 @@
 #include "build_functions.h"
 
 
-using std::vector;
 using std::istream;
 using std::ostream;
-using std::list;
-using std::map;
 using std::string;
 
 
